@@ -6,10 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -18,18 +15,17 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/users/v1/getUser")
-    public ResponseEntity<UserInfoDto> getUser(@RequestBody UserInfoDto userInfoDto){
+    @GetMapping("/users/v1/getUser/{userId}")
+    public ResponseEntity<UserInfoDto> getUser(@PathVariable String userId){
         try {
-            UserInfoDto user = userService.getUser(userInfoDto);
-            return new ResponseEntity<>(user, HttpStatus.OK);
+            return ResponseEntity.ok(userService.getUserById(userId));
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
     @PostMapping("/users/v1/createUpdate")
-    public ResponseEntity<UserInfoDto> createUpdateUser(UserInfoDto userInfoDto){
+    public ResponseEntity<UserInfoDto> createUpdateUser(@RequestBody  UserInfoDto userInfoDto){
         try{
             UserInfoDto user = userService.createOrUpdateUser(userInfoDto);
             return new ResponseEntity<>(user,HttpStatus.OK);

@@ -46,6 +46,21 @@ public class UserService {
         );
     }
 
+    public UserInfoDto getUserById(String userId) throws Exception {
+        UserInfo userInfo = userRepo.findByUserId(userId)
+                .orElseThrow(() -> new Exception("User not found"));
+
+        return new UserInfoDto(
+                userInfo.getUserId(),
+                userInfo.getFirstName(),
+                userInfo.getLastName(),
+                userInfo.getPhoneNumber(),
+                userInfo.getEmail(),
+                userInfo.getProfilePic()
+        );
+    }
+
+
     public UserInfoDto getUser(UserInfoDto userInfoDto) throws Exception {
         Optional<UserInfo> userInfoDtoOpt = userRepo.findByUserId(userInfoDto.getUserId());
         if(userInfoDtoOpt.isEmpty()){

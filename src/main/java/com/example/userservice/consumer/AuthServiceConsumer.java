@@ -16,7 +16,9 @@ public class AuthServiceConsumer {
     @KafkaListener(topics = "${spring.kafka.topic.name}", groupId = "${spring.kafka.consumer.group-id}")
     public void listen(UserInfoDto eventData){
         try{
+
             userService.createOrUpdateUser(eventData);
+            System.out.println("User saved in user-service db");
         } catch (Exception e) {
             e.printStackTrace();
         }

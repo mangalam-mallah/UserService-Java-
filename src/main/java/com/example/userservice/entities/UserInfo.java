@@ -6,10 +6,7 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
@@ -19,10 +16,8 @@ import javax.persistence.Id;
 @Setter
 @Builder
 @JsonIgnoreProperties(ignoreUnknown = true)
+@Table(name = "user_info")
 public class UserInfo {
-
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
 
     @Id
     @JsonProperty("user_id")
@@ -30,15 +25,12 @@ public class UserInfo {
     private String userId;
 
     @JsonProperty("first_name")
-    @NonNull
     private String firstName;
 
     @JsonProperty("last_name")
-    @NonNull
     private String lastName;
 
     @JsonProperty("phone_number")
-    @NonNull
     private Long phoneNumber;
 
     @JsonProperty("email")
