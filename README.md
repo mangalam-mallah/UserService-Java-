@@ -29,7 +29,17 @@ This service **does not handle authentication or token management**.
 4. User data is created or updated in the database
 5. User budget APIs become available
 
----
+# Kafka Flow (WORKING): Auth Service → User Service
+## 1. Current Status
+
+✅ **Auth Service is producing events**  
+✅ **Kafka is delivering events**  
+✅ **User Service is consuming events successfully**  
+✅ **User data is persisted in user-service database**
+This flow is **live and working**.
+## 2. Active Event Flow
+
+Auth Service(UserInfoEvent) ---> Kafka Topic ---> User Service ---> User Database
 
 ## 🧩 Tech Stack
 
